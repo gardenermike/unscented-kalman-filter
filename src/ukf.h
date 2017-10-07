@@ -31,6 +31,10 @@ public:
   ///* predicted sigma points matrix
   MatrixXd Xsig_pred_;
 
+  ///* measurement covariance matrices
+  MatrixXd R_radar_;
+  MatrixXd R_laser_;
+
   ///* time when the state is true, in us
   long long time_us_;
 
@@ -59,14 +63,17 @@ public:
   VectorXd weights_;
 
   ///* State dimension
-  int n_x_;
+  const int n_x_ = 5;
 
   ///* Augmented state dimension
-  int n_aug_;
+  const int n_aug_ = n_x_ + 2;
 
   ///* Sigma point spreading parameter
-  double lambda_;
+  const double lambda_ = 3. - n_aug_;
 
+  ///* Files to track error
+  std::ofstream laser_nis_file_;
+  std::ofstream radar_nis_file_;
 
   /**
    * Constructor
@@ -79,10 +86,16 @@ public:
   virtual ~UKF();
 
   /**
+   * InitializeFirstMeasurement Initializes state with the first measurement
+   * @param meas_package The initial measurement received
+   */
+  void InitializeFirstMeasurement(const MeasurementPackage &measurement_pack);
+
+  /**
    * ProcessMeasurement
    * @param meas_package The latest measurement data of either radar or laser
    */
-  void ProcessMeasurement(MeasurementPackage meas_package);
+  void ProcessMeasurement(const MeasurementPackage &meas_package);
 
   /**
    * Prediction Predicts sigma points, the state, and the state covariance
@@ -95,13 +108,18 @@ public:
    * Updates the state and the state covariance matrix using a laser measurement
    * @param meas_package The measurement at k+1
    */
-  void UpdateLidar(MeasurementPackage meas_package);
+  void UpdateLidar(const MeasurementPackage &meas_package);
 
   /**
    * Updates the state and the state covariance matrix using a radar measurement
    * @param meas_package The measurement at k+1
    */
-  void UpdateRadar(MeasurementPackage meas_package);
+  void UpdateRadar(const MeasurementPackage &meas_package);
+
+  /*
+   * Updates the current time and returns the delta from the previous measurement
+   */
+  double DeltaTime(const MeasurementPackage &measurement_pack);
 };
 
 #endif /* UKF_H */
