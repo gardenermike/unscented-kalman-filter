@@ -35,7 +35,7 @@ The _unscented_ part of the extended Kalman filter handles non-linear data. The 
 The results are best compared with my [extended Kalman filter](https://github.com/gardenermike/extended-kalman-filter) results.
 Using the same dataset, the root mean squared errors for the x and y positions and velocities in x and y are:
 
-| Field | Extended Kalman Filter | Unscented Kalman Filter |
+| Field | Unscented Kalman Filter | Extended Kalman Filter |
 | ----- | ---------------------- | ----------------------- |
 | *X* | 0.0718 | 0.0974 |
 | *Y* | 0.0839 | 0.0855 |
