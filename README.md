@@ -56,4 +56,4 @@ Graphs for radar and laser predictions for NIS, with the 95% chi-squared thresho
 
 The merits of laser/lidar and radar measurements are discussed somewhat in my [extended Kalman filter](https://github.com/gardenermike/extended-kalman-filter) project.
 
-A video of a full run in the simulator can be found [here](http://somewhere).
+A video of a full run in the simulator is on [YouTube](https://youtu.be/e-56YKtx5hE).
